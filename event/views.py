@@ -13,6 +13,8 @@ def home(request):
     start_date = request.GET.get('start_date', '')
     end_date = request.GET.get('end_date', '')
 
+    print(category_id)
+
     categorys = Category.objects.all()
     singleEvent = Event.objects.select_related('category').prefetch_related('participants').order_by('?').first()
 
