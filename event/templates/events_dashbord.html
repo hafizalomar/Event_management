@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body class="bg-gradient-to-b from-white to-blue-300 h-screen w-full">
+    {% include "header.html" %}
+    
+    <div class="flex flex-wrap w-full mt-20">
+      <div class="flex-1 overflow-auto m-5 rounded-md">
+          <table class="w-full border border-gray-300 bg-white">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="px-6 py-3 text-left text-gray-700 font-medium border-b">Img</th>
+                <th class="px-6 py-3 text-left text-gray-700 font-medium border-b">Name</th>
+                <th class="px-6 py-3 text-left text-gray-700 font-medium border-b">Description</th>
+                <th class="px-6 py-3 text-left text-gray-700 font-medium border-b">Location</th>
+                <th class="px-6 py-3 text-left text-gray-700 font-medium border-b">Category</th>
+                <th class="px-6 py-3 text-left text-gray-700 font-medium border-b">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for event in events %}
+                <tr class="border-b hover:bg-gray-50">
+                  <td class="px-6 py-4"><img class="w-16 h-16 object-cover rounded" src="{% static "images/eventpic.jpg" %}" alt=""></td>
+                  <td class="px-6 py-4">{{ event.name }}</td>
+                  <td class="px-6 py-4">{{ event.description }}</td>
+                  <td class="px-6 py-4">{{ event.location }}</td>
+                  <td class="px-6 py-4">{{ event.category.name  }}</td>
+                  <td class="px-6 py-4">
+                    <div class="flex gap-2">
+                      <div>
+                        <form action="{% url "update_event" event.id %}" method="GET">
+                          <button type="submit" class="bg-blue-600 p-2 rounded-xl text-white">
+                              Edit
+                          </button>
+                        </form>
+                      </div>
+                      <div>
+                        <form action="{% url "delete_event" event.id %}" method="POST">
+                          {% csrf_token %}
+                          <button type="submit" class="bg-red-600 p-2 rounded-xl text-white">
+                              Delete
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    {% include "footer.html" %}
+</body>
+</html>
+
+

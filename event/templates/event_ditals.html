@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    {% include "header.html" %}
+
+    <section class="w-1/2 mx-auto mt-24">
+        <div>
+            <div class="overflow-hidden rounded-lg">
+                <img src="{% static "images/eventpic.jpg" %}" alt="Event Image" class="w-full h-96 object-cover">
+            </div>
+    
+            <div class="flex justify-between items-center py-4 border-b">
+                <div class="flex items-center space-x-2 text-gray-600">
+                    <i class="fas fa-calendar-alt text-xl"></i>
+                    <p class="text-gray-700 font-medium">{{ event.date }}</p>
+                </div>
+                <div class="flex items-center space-x-2 text-blue-500 font-bold">
+                    <i class="fas fa-chair text-xl"></i>
+                    <p>500 Seat</p>
+                </div>
+                <div class="flex items-center space-x-2 text-gray-600">
+                    <i class="fas fa-map-marker-alt text-xl"></i>
+                    <p class="text-gray-700 font-medium">{{ event.location }}</p>
+                </div>
+            </div>
+    
+            <div class="flex justify-between gap-4 py-4 text-gray-700">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-code text-blue-500 text-xl"></i>
+                    <div>
+                        <p class="font-semibold">Event Type</p>
+                        <p class="text-sm text-gray-500">{{ event.name }}</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-user text-blue-500 text-xl"></i>
+                    <div>
+                        <p class="font-semibold">{{ event.participants.first }}</p>
+                        <p class="text-sm text-gray-500">Best Participant</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-cloud-bolt text-blue-500 text-xl"></i>
+                    <div>
+                        <p class="font-semibold">Sponsor</p>
+                        <p class="text-sm text-gray-500">Event Lab</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center space-x-2 text-yellow-500">
+                    <div>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-700 font-medium">(500)</p>
+                </div>
+            </div>
+    
+            
+    
+            <div class="mt-2">
+                <div class="w-full bg-gray-300 rounded-full h-2.5">
+                    <div class="bg-blue-500 h-2.5 rounded-full w-3/5"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section class="w-1/2 mx-auto my-10">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">participants</h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-y-8 mx-auto">
+            {% for participant in event.participants.all %}
+                <div class="flex items-center space-x-4">
+                    <img src="{% static "images/img100.jpg" %}" alt="participant images" class="w-20 h-20 rounded-full object-cover">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">{{ participant.name }}</h3>
+                        <p class="text-gray-600 text-sm"> {{ event.name }} </p>
+                        <div class="flex space-x-3 mt-2 text-gray-500">
+                            <i class="fab fa-facebook"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-linkedin"></i>
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+    </section>
+
+    <section>
+
+    </section>
+
+
+    {% include "footer.html" %}
+</body>
+</html>

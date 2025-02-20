@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="text-gray-900">
+    <div class="bg-gradient-to-b from-white to-blue-300 h-screen w-full">
+        {% include "header.html" %}     
+        <div class="max-w-[1440px] mx-auto pt-24">
+            <section class="flex items-center px-12 py-16">
+                <div class="w-1/2">
+                    <p class="text-blue-500 font-medium flex items-center space-x-2">
+                        <i class="fa-regular fa-calendar text-black"></i> 
+                        <span class="text-xl">{{ singleEvent.date }}</span>
+                    </p>
+                    <h1 class="text-6xl font-bold mt-2">
+                        {{ singleEvent.name }}
+                    </h1>
+                    <h1 class="text-6xl font-bold mt-2">
+                        {{ singleEvent.description }}
+                    </h1>
+                    <div class="flex space-x-6 text-gray-700 mt-4">
+                        <p class="flex items-center space-x-2">
+                            <i class="fa-solid fa-chair text-blue-500"></i>
+                            <span><strong>500</strong> Seat</span>
+                        </p>
+                        <p class="flex items-center space-x-2">
+                            <i class="fa-solid fa-user text-blue-500"></i>
+                            <span><strong>{{ singleEvent.participants.count }}</strong> participants</span>
+                        </p>
+                        <p class="flex items-center space-x-2">
+                            <i class="fa-solid fa-location-dot text-blue-500"></i>
+                            <span>{{ singleEvent.location }}</span>
+                        </p>
+                    </div>
+                    <div class="mt-6 flex space-x-4">
+                        <a href="#" class="bg-[#1E88E5] text-white px-6 py-3 rounded-md">Book Now</a>
+                        <a href="#" class="border border-[#1E88E5] text-blue-500 px-6 py-3 rounded-md">View Details</a>
+                    </div>
+                </div>
+    
+                <!-- Image Section -->
+                <div class="w-1/2 relative">
+                    <div class="relative">
+                        <img src="{% static "images/img500.jpg" %}" alt="Main Speaker" class="rounded-3xl shadow-lg">
+                        <div class="absolute -top-10 left-10">
+                            <img src="{% static "images/img100.jpg" %}" alt="Speaker" class="rounded-full border-4 border-white shadow-lg">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="p-5 bg-white -mt-14 w-1/2 rounded-full mx-auto shadow-md flex justify-center gap-2">
+        <form method="GET" action="">
+            <div class="flex items-center justify-center gap-4">
+                <div class="flex bg-gray-100 p-4 w-72 space-x-4 rounded-full border-2 border-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 opacity-70 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input class="bg-gray-100 outline-none" type="text" placeholder="Search by name or location" name="q"/>
+                </div>
+                <div class="bg-blue-500 py-5 px-7 text-white font-semibold rounded-full hover:shadow-lg transition duration-3000 cursor-pointer">
+                    <button type="submit">Search Now</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="max-w-[1440px] mx-auto my-10">
+        <div class="text-center mb-10">
+            <h1 class="text-blue-500 text-3xl font-semibold">Event</h1>
+            <h1 class="text-black text-4xl font-bold">POPOULER EVENT</h1>
+            <div class="flex gap-5 mx-auto justify-center mt-5">
+                {% for category in categorys %}
+                    <a href=""><div class="p-2 border-2 border-blue-500">{{ category }}</div></a>
+                {% endfor %}
+            </div>
+        </div>
+        {% comment %} filter kit {% endcomment %}
+        <div class="flex justify-center mb-10 gap-4">
+            <form action="" class="flex gap-4">
+                <p class="border-2 border-blue-500 rounded-full p-3">start date</p>
+                <div>
+                    <input placeholder="start date" type="date" class="border-2 border-blue-500 px-4 py-3 rounded-full flex-grow" name="start_date">
+                </div>
+                <p class="border-2 border-blue-500 rounded-full p-3">end date</p>
+                <div>
+                    <input placeholder="end date" type="date" class="border-2 border-blue-500 px-4 py-3 rounded-full flex-grow" name="end_date">
+                </div>
+                <div>
+                    <select class="border-2 border-blue-500 px-5 py-4 rounded-full flex-grow" name="category.id">
+                        <option>Category</option>
+                        {% for category in categorys %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="bg-blue-500 py-4 px-5 text-white font-semibold rounded-full hover:shadow-lg transition duration-3000 cursor-pointer">
+                    <button type="submit">Filter</button>
+                </div>
+            </form>
+        </div>
+        <div class="grid grid-cols-3 gap-8 px-28">
+            
+            {% for event in events %}
+            
+                <div class="max-w-sm bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="relative">
+                        <img src="{% static "images/eventpic.jpg" %}" alt="Event Image" class="w-full h-52 object-cover">
+                        <div class="absolute bottom-0 left-0 bg-blue-500 text-white px-4 py-2 flex items-center gap-2 rounded-tr-lg">
+                            <i class="fa-solid fa-chair"></i>
+                            <span class="font-semibold text-sm">500 Seat</span>
+                        </div>
+                    </div>
+            
+                    <div class="p-5">
+                        <div class="flex items-center justify-between text-gray-800 text-sm space-x-4 mb-3">
+                            <div class="flex items-center gap-1">
+                                <i class="fa-regular fa-calendar text-blue-500"></i>
+                                <span>{{ event.date }}</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <i class="fa-solid fa-location-dot text-blue-500"></i>
+                                <span class="text-gray-800 font-semibold">{{ event.location }}</span>
+                            </div>
+                        </div>
+            
+                        <div>
+                            <h1 class="text-lg font-semibold text-gray-800 leading-tight">
+                                {{ event.name }} {{ event.description }}
+                            </h1>
+                        </div>
+                        
+                        <div class="mt-4 flex items-center justify-between">
+                            <form action="{% url "update_event" event.id %}" method="GET">
+                                <button type="submit" class="text-blue-500 p-2 font-semibold hover:underline">
+                                    book now
+                                </button>
+                              </form>
+                            <form action="{% url "event_ditals" event.id %}" method="GET">
+                                <button type="submit" class="p-2 border-2 border-blue-500 rounded-xl text-blue-500 hover:bg-blue-500 hover:text-white">
+                                    View Ditals
+                                </button>
+                              </form>
+                        </div>
+                    </div>
+                </div>
+    
+            {% endfor %}
+        </div>
+    </div>
+
+    {% include "footer.html" %}
+</body>
+</html>

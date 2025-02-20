@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Document</title>
+</head>
+<body class="bg-gradient-to-b from-white to-blue-300 h-screen w-full">
+    {% include "header.html" %}
+    
+    <div class="flex flex-wrap w-full mt-20 rounded-md">
+      <div class="m-5 flex-1 overflow-auto">
+          <table class="w-full border border-gray-300 bg-white">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="px-6 py-3 text-left text-gray-700 font-medium border-b">Img</th>
+                <th class="px-6 py-3 text-left text-gray-700 font-medium border-b">Name</th>
+                <th class="px-6 py-3 text-left text-gray-700 font-medium border-b">Email</th>
+                <th class="px-6 py-3 text-left text-gray-700 font-medium border-b">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for participant in participants %}
+                <tr class="border-b hover:bg-gray-50">
+                  <td class="px-6 py-4"><img class="w-16 h-16 object-cover rounded" src="{% static "images/eventpic.jpg" %}" alt=""></td>
+                  <td class="px-6 py-4">{{ participant.name }}</td>
+                  <td class="px-6 py-4">{{ participant.email }}</td>
+                  <td class="px-6 py-4">
+                    <div class="flex gap-2">
+                      <div>
+                        <form action="{% url "update_participant" participant.id %}" method="GET">
+                          <button type="submit" class="bg-blue-600 p-2 rounded-xl text-white">
+                              Edit
+                          </button>
+                        </form>
+                      </div>
+                      <div>
+                        <form action="{% url "delete_participant" participant.id %}" method="POST">
+                          {% csrf_token %}
+                          <button type="submit" class="bg-red-600 p-2 rounded-xl text-white">
+                              Delete
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    {% include "footer.html" %}
+</body>
+</html>
+
+
