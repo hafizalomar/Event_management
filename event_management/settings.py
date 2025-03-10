@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'event',
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -86,23 +87,23 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'event_management',
-#         'USER': 'postgres',
-#         'PASSWORD': 'H@fiz12345ali',
-#         'HOST': 'localhost',
-#         'PORT': '5432'
-#     }
-# }
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://event_management_system_bjib_user:9BXf0O85xhCG1AmGcQPEq26gaJq4WvES@dpg-cug4u2dds78s738apa8g-a.oregon-postgres.render.com/event_management_system_bjib',
-        conn_max_age=600
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'event_management',
+        'USER': 'postgres',
+        'PASSWORD': 'H@fiz12345ali',
+        'HOST': 'localhost',
+        'PORT': '5432'
+    }
 }
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='postgresql://event_management_system_bjib_user:9BXf0O85xhCG1AmGcQPEq26gaJq4WvES@dpg-cug4u2dds78s738apa8g-a.oregon-postgres.render.com/event_management_system_bjib',
+#         conn_max_age=600
+#     )
+# }
 
 
 
