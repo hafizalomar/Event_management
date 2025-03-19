@@ -33,7 +33,6 @@ def signin(request):
 
 
 def signout(request):
-    if request.method == 'POST':
-        logout(request)
+    logout(request)
         
     return redirect('login')
