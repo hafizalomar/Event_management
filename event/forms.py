@@ -4,7 +4,7 @@ from event.models import Category, Event, Participant
 class StyledFormMixin:
     """ Mixing to apply style to form field"""
 
-    default_classes = "border-2 border-gray-300 w-full p-3 rounded-lg shadow-sm focus:outline-none focus:border-blue-500 focus:ring-rose-500"
+    default_classes = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
 
     def apply_styled_widgets(self):
         for field_name, field in self.fields.items():
