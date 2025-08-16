@@ -95,7 +95,7 @@ def create_event(request):
     context = {
         "event_form": event_form
     }
-    return render(request, "event_form.html", context)
+    return render(request, "forms/event_form.html", context)
 
 def create_category(request):
     category_form =  CategoryModelForm() # For GET
@@ -114,7 +114,7 @@ def create_category(request):
     context = {
         "category_form": category_form
     }
-    return render(request, "category_form.html", context)
+    return render(request, "forms/category_form.html", context)
 
 def create_participant(request):
     participant_form =  ParticipantModelForm() # For GET
@@ -133,7 +133,7 @@ def create_participant(request):
     context = {
         "participant_form": participant_form
     }
-    return render(request, "participant_form.html", context)
+    return render(request, "forms/participant_form.html", context)
 
 #event methods
 def show_events_data(request):
@@ -159,7 +159,7 @@ def update_event(request, id):
             return redirect('events_dashbord')
 
     context = {"event_form": event_form}
-    return render(request, "event_form.html", context)
+    return render(request, "forms/event_form.html", context)
 
 
 def delete_event(request, id):
@@ -194,7 +194,7 @@ def update_category(request, id):
             return redirect('categorys_dashbord')
 
     context = {"category_form": category_form}
-    return render(request, "category_form.html", context)
+    return render(request, "forms/category_form.html", context)
 
 
 def delete_category(request, id):
@@ -228,7 +228,7 @@ def update_participants (request, id):
             return redirect('participants_dashbord')
 
     context = {"participant_form": participant_form}
-    return render(request, "participant_form.html", context)
+    return render(request, "forms/participant_form.html", context)
 
 
 def delete_participants(request, id):
