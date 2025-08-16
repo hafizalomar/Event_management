@@ -2,7 +2,7 @@ from django.urls import path #type: ignore
 from event.views import home, create_event, create_category, create_participant, dashbord, show_events_data, update_event, delete_event ,show_categorys_data, update_category, delete_category, show_participants_data, update_participants, delete_participants, eventDitals
 
 urlpatterns = [
-    path('', home),
+    path('', home, name="home"),
     path('dashbord/', dashbord,  name="dashbord"),
     path('create_event/', create_event, name="create_event"),
     path('create_category/', create_category, name="create_category"),
