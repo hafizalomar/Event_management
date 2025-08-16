@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>{% block title %}Defult Title{% endblock title %}</title>
+    <style>
+        @keyframes slideInRight {
+            0% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+        }
+        
+        .toast-material {
+            animation: slideInRight 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            width: 320px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .toast-material::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.4);
+            animation: progress 3s linear forwards;
+        }
+        
+        .toast-material.fade-out {
+            animation: fadeOut 0.5s ease forwards;
+        }
+        
+        @keyframes progress {
+            to { width: 0%; }
+        }
+        
+        .success-toast {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .error-toast {
+            background: #F44336;
+            color: white;
+        }
+        
+        .info-toast {
+            background: #2196F3;
+            color: white;
+        }
+        
+        .warning-toast {
+            background: #FF9800;
+            color: white;
+        }
+        
+        .toast-icon {
+            margin-right: 12px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    {% include "header.html" %}
+    
+    <!-- Toast Notification Container -->
+    
+    <div id="toast-container" class="fixed top-6 right-6 z-50 space-y-3">
+        {% for message in messages %}
+            <div class="toast-material {% if message.tags == 'success' %}success-toast
+                {% elif message.tags == 'error' %}error-toast
+                {% elif message.tags == 'warning' %}warning-toast
+                {% else %}info-toast{% endif %}">
+                <i class="toast-icon fas 
+                    {% if message.tags == 'success' %}fa-check-circle
+                    {% elif message.tags == 'error' %}fa-check-circle
+                    {% elif message.tags == 'warning' %}fa-exclamation-triangle
+                    {% else %}fa-info-circle{% endif %}">
+                </i>
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 mt-2">
+        {% include "logo.html" %}
+        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+                    {% block heding %}{% endblock heding %}
+                </h1>
+                <form method="POST" class="space-y-2 md:space-y-3">
+                    {% csrf_token %}
+                    {% comment %} main content block {% endcomment %}
+                    {% block content %}{% endblock content %}
+                    <button type="submit" class="w-full text-white bg-blue-500 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% include "footer.html" %}
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toasts = document.querySelectorAll('.toast-material');
+            
+            toasts.forEach(toast => {
+                setTimeout(() => {
+                    toast.classList.add('fade-out');
+                    setTimeout(() => toast.remove(), 500);
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+</html>
