@@ -1,4 +1,4 @@
-<header class="">
+<header class="mb-8">
     <nav class="top-0 flex justify-between items-center py-4 px-4 sm:px-8 md:px-16 lg:px-32 xl:px-64 bg-white fixed z-50 w-full">
         {% include "logo.html" %}
     
@@ -54,19 +54,19 @@
         <div class="absolute left-0 mt-3 w-48 bg-white text-gray-900 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300">
             <div class="h-2 w-full bg-blue-500"></div>
             {% if user.is_authenticated %}
-                <a href="/logout" class="block px-5 py-3 hover:text-blue-500 hover:ml-2">Log out</a>
+                <a href="{% url "logout" %}" class="block px-5 py-3 hover:text-blue-500 hover:ml-2">Log out</a>
             {% else %}
-                <a href="/login" class="block px-5 py-3 hover:text-blue-500 hover:ml-2">Log in</a>
-                <a href="/signup" class="block px-5 py-3 hover:text-blue-500 hover:ml-2">Sign up</a>
+                <a href="{% url "logout" %}" class="block px-5 py-3 hover:text-blue-500 hover:ml-2">Log in</a>
+                <a href="{% url "signup" %}" class="block px-5 py-3 hover:text-blue-500 hover:ml-2">Sign up</a>
             {% endif %}
         </div>
     </div>
 </div>
     </nav>
 </header>
-<script>
+{% comment %} <script>
     document.getElementById('menu-toggle').addEventListener('click', function() {
         var menu = document.getElementById('menu');
         menu.classList.toggle('hidden');
     });
-</script>
+</script> {% endcomment %}

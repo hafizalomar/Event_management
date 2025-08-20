@@ -177,7 +177,7 @@ def show_categorys_data(request):
         "categorys": categorys
     }
 
-    return render(request, "category_dashbord.html", context)
+    return render(request, "tables/category_dashbord.html", context)
 
 def update_category(request, id):
     category = Category.objects.get(id=id)
